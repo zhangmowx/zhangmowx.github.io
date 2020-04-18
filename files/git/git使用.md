@@ -2,7 +2,7 @@
 
 ### 1. git 操作流程图
 
-![](..//images\git\git使用命令.png)
+![](..//images/git/git使用命令.png)
 
 ### 2. 创建仓库
 
@@ -43,7 +43,6 @@ $ git branch -r                     # 列出所有远程分支
 $ git branch -a                     # 列出所有本地分支和远程分支
 $ git branch [branch-name]          # 新建一个分支，但依然停留在当前分支
 $ git checkout -b [branch]          # 新建一个分支，并切换到该分支
-git checkout -b appoint_box（别名） origin/feature/20181128_1491627_appoint_box_1（分支名）
 $ git checkout [branch-name]        # 切换到指定分支，并更新工作区
 $ git checkout -                    # 切换到上一个分支
 $ git merge [branch]                # 合并指定分支到当前分支
@@ -52,7 +51,7 @@ $ git push origin --delete [branch-name]   # 删除远程分支
 $ git branch -dr [remote/branch]
 $ git branch -v                     #查看当前所在分支的
 $ git branch -m [branch-name]       #修改当前分支名
-
+$ git branch push [remote] [branch-name] #将当前分支提交到远程仓库的分支
 ```
 
 ### 6. 标签
