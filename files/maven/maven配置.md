@@ -306,3 +306,91 @@ settings.xml配置文件用来配置**Maven**全局参数配置文件，pom.xml�
 
 ### 3. maven 依赖管理
 
+- 依赖传递性
+
+- 依赖优先原则
+
+  - **依赖最短路径优先原则**  当多个依赖同时依赖同一个jar，选择依赖路径最短的jar
+  - **pom文件中申明顺序优先** pom文件中使用先申明的
+  - **覆写优先**  子pom申明优先于父pom
+
+- 可选依赖
+
+   任何可传递的依赖可以被标记为可选的，通过使用 "optional" 元素。例如：A 依赖 B， B 依赖 C。因此，B 可以标记 C 为可选的， 这样 A 就可以不再使用 C。 
+
+- 排除依赖
+
+   任何可传递的依赖都可以通过 "exclusion" 元素被排除在外。举例说明，A 依赖 B， B 依赖 C，因此 A 可以标记 C 为 "被排除的"。 
+
+- **依赖范围**
+
+  - **compile**:表示jar包会在编辑和打包的时候都引入。默认值
+  - provided:表示jar包在编译和测试的时候引入，打包时不引入;例如servlet-api.jar
+  - runtime:运行时依赖，编译时不依赖;例如jdbc驱动包
+  - system:provided相同,依赖项不从maven仓库获取，从本地文件系统获取。通过systemPath来设置
+  - test:表示在测试范围有效，编译和打包不引入
+  - import:只能在<dependencyManagement>节中的使用。从其他POM文件中导入dependency配置。
+
+
+
+### 4. maven 项目继承与聚合
+
+- 项目继承
+
+  继承是指子工程直接继承父工程 当中的属性、依赖、插件等配置，避免重复配置。通过<parent>标签进行配置。子工程可以进行重写属性，依赖，插件等配置
+
+- 项目聚合
+
+  将多个模块整合在一起，统一构建，避免一个一个的构建。聚合需要个父工程，然后使用 <modules> 进行配置其中对应的是子工程的相对路径 。
+
+  ```xml
+  <modules>
+  	<module>project-A</module>
+      <module>project-B</module>
+      <module>project-C</module>
+  </modules>
+  ```
+
+  
+
+### 5. maven 构建生命周期
+
+maven有三个标准生命周期
+
+- **clean**   项目清理 
+
+- **default/bulid** 项目部署
+
+- **site**  项目站点文档创建的处理 
+
+  
+
+**default生命周期**
+
+开始-> validate（验证） -> **compile（编译）** -> **test（单元测试）** ->**package（打包）** -> verify（检查） -> **install（安装）** -> **deploy（部署）**
+
+### 6. maven常用命令
+
+1.mvn clean  清空项目的class文件、jar文件等( 清空target目录)
+
+2.mvn compile 编译源代码(target目录生成class文件)
+
+3.mvn install  在本地repository中安装jar（包含mvn compile，mvn package，然后上传到本地仓库）
+
+4.mvn deploy  上传到私服(包含mvn install,然后，上传到私服)
+
+5.mvn package   打包（项目打包，在target目录生成一个pom中指定打包格式的文件。包含mvn test）
+
+6.mvn test      运行测试
+
+7.mvn site   产生site
+
+8.mvn test-compile  编译测试代码
+
+9.mvn -Dtest package 只打包不测试
+
+10.mvn jar:jar  只打jar包
+
+11.mvn test -skipping compile -skipping test-compile 只测试而不编译，也不测试编译
+
+12.mvn source.jar  源码打包
